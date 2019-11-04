@@ -1,0 +1,24 @@
+var http=require("http")
+var fs=require("fs")
+http.createServer((req,res)=>{
+   if(req.url=="/favicon.ico"){
+	   return
+   }
+   /**
+	* 1.如果地址栏访问的是/  则加载bar.html
+	  2.如果地址栏访问的是/foo 则加载foo.html
+    */
+   if(req.url=="/"){
+	   fs.readFile("./static/bar.html",(err,data)=>{
+		   res.end(data)
+	   })
+   }else if(req.url=="/foo"){
+	   fs.readFile("./static/foo.html",(err,data)=>{
+		   res.end(data)
+	   })
+   }else{
+	fs.readFile("./static/404.html",(err,data)=>{
+		res.end(data)
+	})
+   }
+}).listen(3000)
